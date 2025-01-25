@@ -60,6 +60,9 @@ async function checkSite(url, tabId) {
         else if (unproductiveSites.includes(url)) {
             contentToShow = "Unproductive";
         }
+        else if (url == "chrome://newtab/") {
+            contentToShow = "Neutral";
+        }
         else {
             console.log(`Used AI for ${url}`)
             const domain = new URL(url).hostname.replace("www.", "");
@@ -87,6 +90,11 @@ async function checkSite(url, tabId) {
             console.log("Good: This site helps your productivity!");
             chrome.action.setBadgeText({ text: "Good"});
             chrome.action.setBadgeBackgroundColor({ color: "green" });
+        }
+        else if (contentToShow.trim() == "Neutral") {
+            console.log("Neutral: This site does not affect your productivity");
+            chrome.action.setBadgeText({ text: "Neutral" });
+            chrome.action.setBadgeBackgroundColor({ color: "yellow" })
         }
         else {
             console.log(contentToShow);
@@ -132,5 +140,12 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
         // Return true to indicate you want to send a response asynchronously
         return true;
+    }
+});
+
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message.action === "setBadge") {
+        chrome.action.setBadgeText({ text: message.text });
+        chrome.action.setBadgeBackgroundColor({ color: message.color });
     }
 });

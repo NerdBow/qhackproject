@@ -29,6 +29,7 @@ chrome.runtime.sendMessage({ action: "checkCurrentSite" }, function(response) {
                 unproductiveSites.splice(index, 1);
                 productiveSites.push(url);
                 updateLocalStorage();
+                chrome.runtime.sendMessage({ action: "setBadge", text: "Good", color: "green" });
             }
         }
     });
@@ -40,6 +41,7 @@ chrome.runtime.sendMessage({ action: "checkCurrentSite" }, function(response) {
                 productiveSites.splice(index, 1);
                 unproductiveSites.push(url);
                 updateLocalStorage();
+                chrome.runtime.sendMessage({ action: "setBadge", text: "Bad", color: "red" });
             }
         }
     });
