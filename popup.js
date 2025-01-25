@@ -3,8 +3,9 @@ import { productiveTime, rotTime, siteModifier, timerValue, updateTimer } from "
 
 document.getElementById("shareButton").addEventListener("click", () => {
     updateTimer();
+    console.log("Productive Time:", productiveTime, "Rot Time:", rotTime);
     getClipboardImage(rotTime, productiveTime);
-    console.log(productiveTime, rotTime);
+     //alert("Image copied to clipboard!");
 });
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -16,11 +17,16 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 async function displayGraph() {
+    // Ensure timer values are up to date
     updateTimer();
-    document.getElementById("dailyStats").width = 300;
-    document.getElementById("dailyStats").height = 300;
-    console.log(rotTime, productiveTime);
-    generateGraph(document.getElementById("dailyStats"), rotTime, productiveTime);
+
+    const canvas = document.getElementById("dailyStats");
+    const canvasSize = 200; // Set the graph size
+    canvas.width = canvasSize;
+    canvas.height = canvasSize;
+
+    // Generate the graph on the canvas
+    generateGraph(canvas, rotTime, productiveTime);
 }
 
 function convertToDisplayTime(timestamp){
@@ -29,7 +35,7 @@ function convertToDisplayTime(timestamp){
     }
     let extraZeroMinutes = "";
     let extraZeroSeconds = "";
-    if (Math.floor((timestamp%3600)/60) < 10){
+    if (Math.floor((timestamp%3600) / 60) < 10){
         extraZeroMinutes = "0";
     }
     if (timestamp%60 < 10){

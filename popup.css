@@ -52,6 +52,14 @@ p {
     color: #f38ba8;
 }
 
+#dailyStats {
+    display: block;
+    margin: 20px auto;
+    border: 2px solid #37465B;
+    border-radius: 10px;
+    background-color: #24273a;
+}
+
 /* Flex Container for Buttons */
 #buttonContainer {
     display: flex;
