@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>Productivity Tracker</title>
+  <title>Rot or Not</title>
   <script type="module" src="popup.js"></script>
   <link rel="stylesheet" href="popup.css">
 </head>
@@ -10,17 +10,20 @@
 <body>
   <h1>Rot or Not</h1>
 
+
   <h2 id="timer">Timer</h2>
 
   <div id="timersContainer">
     <p id="productiveTimer">Productive time: 0:00:00</p>
     <p id="rotTimer">Rot time: 0:00:00</p>
   </div>
-
   
   <canvas id="dailyStats"></canvas>
 
   <div id="buttonContainer">
+
+    <button id="getApiKeyButton">Get API Key</button> 
+
     <button id="shareButton">Share</button>
     <button id="prodButton">
       <img src="./assets/thumbs-up-tp.png" alt="Thumbs Up" class="button-icon">

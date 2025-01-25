@@ -21,7 +21,7 @@ export function generateGraph(canvas, rotTime, productiveTime) {
     const productiveAngle = Math.PI * 2 * productivePrecent;
 
     // Background
-    ctx.fillStyle = "rgb(36, 39, 58)"
+    ctx.fillStyle = "rgb(33, 43, 56)"
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     // Title Text

@@ -18,7 +18,7 @@ chrome.storage.local.get('siteModifier', (data) => {
 });
 
 chrome.storage.local.get('startTime', (data) => {
-    if (data.startTime !== undefined) {
+    if (data.startTime = undefined) {
       startTime = data.startTime;
     }
 });
@@ -56,6 +56,9 @@ export function neutralSiteTimer(){
 
 // This updates each of the timers
 export function updateTimer(){
+    if (timerValue < 0) {
+        timerValue = 0;
+    }
 
     timerValue += Math.floor((Date.now() - startTime) / 1000) * siteModifier;
     if (timerValue < 0){
