@@ -2,6 +2,8 @@ import CONFIG from "./setting/config.js";
 
 const productiveSites = ["docs.google.com", "stackoverflow.com", "khanacademy.org"];
 const unproductiveSites = ["facebook.com", "youtube.com","reddit.com"];
+import { badSiteTimer, goodSiteTimer, neutralSiteTimer } from "./scripts/timer.js";
+
 const redirectUrl = "https://www.wikipedia.org";
 
 const apiKey = CONFIG.API_KEY;
@@ -43,31 +45,20 @@ async function checkSite(url, tabId){
         console.log("Bad: This site might hurt your productivity.");
         chrome.action.setBadgeText({ text: "Bad" });
         chrome.action.setBadgeBackgroundColor({ color: "red" });
-        //chrome.tabs.update(tabId, { url: redirectUrl });
+        badSiteTimer();
     }
     else if (contentToShow.trim() == "Productive") {
         console.log("Good: This site helps your productivity!");
         chrome.action.setBadgeText({ text: "Good"});
         chrome.action.setBadgeBackgroundColor({ color: "green" });
+        goodSiteTimer();
     }
     else {
         console.log(contentToShow);
+        neutralSiteTimer();
     }
     console.log(domain)
     console.log(contentToShow)
-    /*if (unproductiveSites.includes(domain)) {
-        console.log("Bad: This site might hurt your productivity.");
-        chrome.action.setBadgeText({ text: "Bad" });
-        chrome.action.setBadgeBackgroundColor({ color: "red" });
-        chrome.tabs.update(tabId, { url: redirectUrl });
-    } else if (productiveSites.includes(domain)) {
-        console.log("Good: This site helps your productivity!");
-        chrome.action.setBadgeText({ text: "Good"});
-        chrome.action.setBadgeBackgroundColor({ color: "green" });
-    } else{
-        console.log("Neutral: Site not in productivity list.");
-        chrome.action.setBadgeText({ text: "" });
-    }*/
 }
 
 // Listening for tab activation
