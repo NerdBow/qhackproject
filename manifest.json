@@ -2,14 +2,14 @@
     "manifest_version": 3,
     "name": "RotOrNot",
     "version": "1.0",
-    "permissions": ["tabs", "activeTab"],
+    "permissions": ["tabs", "activeTab", "storage"],
     "host_permissions": ["<all_urls>"],
     "icons": {
         "48": "/assets/brainRotIcon.png"
     },
     "background": {
         "service_worker": "background.js",
-         "type": "module"
+        "type": "module"
     },
     "action": {
         "default_popup": "popup.html",
