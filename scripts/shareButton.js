@@ -23,14 +23,14 @@ export function generateGraph(canvas, rotTime, productiveTime) {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     // Title Text
-    ctx.font = "" + (width / 500) * 40 + "px Arial";
+    ctx.font = "" + (canvas.width / 500) * 40 + "px Arial";
     ctx.fillStyle = "rgb(202, 211, 245)";
     ctx.textAlign = "center";
     ctx.textBaseline = "top";
-    ctx.fillText("Daily Rot Chart", width / 2, height / 10);
+    ctx.fillText("Daily Rot Chart", canvas.width / 2, canvas.height / 10);
 
     // Legend Symbols
-    ctx.font = "" + (width / 500) * 20 + "px Arial";
+    ctx.font = "" + (canvas.width / 500) * 20 + "px Arial";
     ctx.textAlign = "left";
 
     const padding = canvas.width / 50;
@@ -42,7 +42,7 @@ export function generateGraph(canvas, rotTime, productiveTime) {
 
     ctx.fillStyle = "rgb(166, 218, 149)";
     ctx.fillRect(padding, canvas.height - sqaureSize * 2 - padding * 2, sqaureSize, sqaureSize);
-    ctx.fillText("Productive Time", padding * 2 + sqaureSize, canvas.height - padding - sqaureSize);
+    ctx.fillText("Productive Time", padding * 2 + sqaureSize, canvas.height - padding * 2 - sqaureSize * 2);
 
     // Stroke settings
     ctx.lineWidth = (canvas.width / 10);
