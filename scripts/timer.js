@@ -58,6 +58,9 @@ export function neutralSiteTimer(){
 export function updateTimer(){
 
     timerValue += Math.floor((Date.now() - startTime) / 1000) * siteModifier;
+    if (timerValue < 0){
+        timerValue = 0;
+    }
     if (siteModifier === -1){
         rotTime += Math.floor((Date.now() - startTime) / 1000);
         chrome.storage.local.set({ rotTime: rotTime });

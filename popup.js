@@ -1,5 +1,9 @@
 import { productiveTime, rotTime, siteModifier, timerValue } from "./scripts/timer.js";
+
 function convertToDisplayTime(timestamp){
+    if (timestamp < 0){
+        return "0:00:00";
+    }
     let extraZeroMinutes = "";
     let extraZeroSeconds = "";
     if (Math.floor((timestamp%3600)/60) < 10){
@@ -26,7 +30,7 @@ function updateElapsedTime() {
                 timeRotRaw += elapsedTime;
             }
 
-            document.getElementById("timer").innerText = `Time bank: ${convertToDisplayTime(timeRaw)}`;
+            document.getElementById("timer").innerText = `Time Bank ${convertToDisplayTime(timeRaw)}`;
             document.getElementById("productiveTimer").innerText = `Productive time: ${convertToDisplayTime(timeProductiveRaw)}`;
             document.getElementById("rotTimer").innerText = `Rot time: ${convertToDisplayTime(timeRotRaw)}`;
     });

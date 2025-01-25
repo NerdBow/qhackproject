@@ -1,5 +1,6 @@
 import CONFIG from "./setting/config.js";
 
+
 const productiveSites = ["docs.google.com", "stackoverflow.com", "khanacademy.org"];
 const unproductiveSites = ["facebook.com", "youtube.com","reddit.com"];
 import { badSiteTimer, goodSiteTimer, neutralSiteTimer } from "./scripts/timer.js";
@@ -26,7 +27,7 @@ async function generateContent(query) {
 
         const data = await response.json();
         if (data && data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0] && data.candidates[0].content.parts[0].text) {
-            return data.candidates[0].content.parts[0].text
+            return data.candidates[0].content.parts[0].text;
         } else {
             console.error("Error generating content:", data);
             return null;
@@ -49,7 +50,7 @@ async function checkSite(url, tabId){
     }
     else if (contentToShow.trim() == "Productive") {
         console.log("Good: This site helps your productivity!");
-        chrome.action.setBadgeText({ text: "Good"});
+        chrome.action.setBadgeText({ text: "Good" });
         chrome.action.setBadgeBackgroundColor({ color: "#a6e3a1" });
         goodSiteTimer();
     }
