@@ -1,15 +1,30 @@
-import { getClipboardImage, generateGraph, createCanvas} from "./scripts/shareButton.js";
-import { productiveTime, rotTime, siteModifier, timerValue } from "./scripts/timer.js";
+import { getClipboardImage, generateGraph, createCanvas} from "./scripts/graphs.js";
+import { productiveTime, rotTime, siteModifier, timerValue, updateTimer } from "./scripts/timer.js";
 
-document.getElementById("dailyStats").width = 300;
-document.getElementById("dailyStats").height = 300;
-generateGraph(document.getElementById("dailyStats"), 10, 20);
+
 
 document.getElementById("shareButton").addEventListener("click", () => {
-    // chrome.storage.local.get("rotTime");
-    // chrome.storage.local.get("productiveTime");
-    getClipboardImage(10.2, 2);
+    updateTimer();
+    getClipboardImage(rotTime, productiveTime);
+    console.log(productiveTime, rotTime);
 });
+
+document.addEventListener("DOMContentLoaded", async () => {
+    // USELESS CODE BUT MAKE THE VARIABLES LOAD IN FOR SOME REASON
+    const result = await new Promise((resolve) => {
+        chrome.storage.local.get(["myKey"], (data) => resolve(data));
+      });
+    displayGraph();
+});
+
+async function displayGraph() {
+    updateTimer();
+    document.getElementById("dailyStats").width = 300;
+    document.getElementById("dailyStats").height = 300;
+    console.log(rotTime, productiveTime);
+    generateGraph(document.getElementById("dailyStats"), rotTime, productiveTime);
+}
+
 
 function convertToDisplayTime(timestamp){
     let extraZeroMinutes = "";
