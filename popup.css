@@ -1,0 +1,133 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #212B38;
+    color: #f0c6c6;
+    line-height: 1.6;
+    border: 4px solid #37465B;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #726EFF;
+    text-align: center;
+}
+
+h2 {
+    font-size: 20px;
+    margin-top: 20px;
+    color: #8caaee;
+    text-align: center;
+}
+
+p {
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+#timer {
+    font-size: 20px;
+    font-weight: bold;
+    color: #8caaee;
+    margin-top: 5px;
+    text-align: center;
+}
+
+#timersContainer {
+    margin-top: 15px;
+    text-align: center;
+}
+
+#productiveTimer, #rotTimer {
+    font-size: 16px;
+    font-weight: normal;
+    margin-top: 5px;
+    color: #a6da95;
+}
+
+#rotTimer {
+    color: #f38ba8;
+}
+
+#dailyStats {
+    display: block;
+    margin: 20px auto;
+    border: 2px solid #37465B;
+    border-radius: 10px;
+    background-color: #24273a;
+}
+
+/* Flex Container for Buttons */
+#buttonContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* Button Styling */
+button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    width: 60px; /* Adjust the button size */
+    height: 60px;
+    border-radius: 50%; /* Circular buttons */
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Optional shadow for depth */
+}
+
+/* Button Hover Effect */
+button:hover {
+    transform: scale(1.1); /* Slight zoom-in on hover */
+}
+
+/* Thumbs-Up Button (Green Background) */
+button#prodButton {
+    background-color: #a6da95; /* Light green background */
+}
+
+button#prodButton:hover {
+    background-color: #93c284; /* Darker green on hover */
+}
+
+/* Thumbs-Down Button (Red Background) */
+button#unprodButton {
+    background-color: #f38ba8; /* Light red background */
+}
+
+button#unprodButton:hover {
+    background-color: #db7f99; /* Darker red on hover */
+}
+
+/* Share Button */
+button#shareButton {
+    padding: 10px 15px;
+    background-color: #85c1dc;
+    color: #737994;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.6s ease, color 0.6s ease;
+}
+
+button#shareButton:hover {
+    background-color: #8caaee;
+    color: #494d64;
+    transition: background-color 0.6s ease, color 0.3s ease-out;
+}
+
+/* Image Styling for Icons */
+.button-icon {
+    width: 40px; /* Adjust size for images */
+    height: 40px;
+    background-color: transparent; /* Ensure the image background is transparent */
+    object-fit: contain; /* Maintain aspect ratio */
+}

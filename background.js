@@ -1,8 +1,6 @@
 import CONFIG from "./setting/config.js";
 import { badSiteTimer, goodSiteTimer, neutralSiteTimer } from "./scripts/timer.js";
 
-const redirectUrl = "https://www.wikipedia.org";
-
 // chrome.storage.local.clear(function() {
 //     if (chrome.runtime.lastError) {
 //         console.error("Error clearing local storage: ", chrome.runtime.lastError);
@@ -32,7 +30,7 @@ async function generateContent(query) {
 
         const data = await response.json();
         if (data && data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0] && data.candidates[0].content.parts[0].text) {
-            return data.candidates[0].content.parts[0].text
+            return data.candidates[0].content.parts[0].text;
         } else {
             console.error("Error generating content:", data);
             return null;

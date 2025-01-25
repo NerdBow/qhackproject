@@ -1,12 +1,10 @@
 import { getClipboardImage, generateGraph, createCanvas} from "./scripts/graphs.js";
 import { badSiteTimer, goodSiteTimer, productiveTime, rotTime, siteModifier, timerValue, updateTimer } from "./scripts/timer.js";
 
-
-
 document.getElementById("shareButton").addEventListener("click", () => {
     updateTimer();
+    console.log("Productive Time:", productiveTime, "Rot Time:", rotTime);
     getClipboardImage(rotTime, productiveTime);
-    console.log(productiveTime, rotTime);
 });
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -18,21 +16,26 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 async function displayGraph() {
+    // Ensure timer values are up to date
     updateTimer();
-    document.getElementById("dailyStats").width = 300;
-    document.getElementById("dailyStats").height = 300;
-    console.log(rotTime, productiveTime);
-    generateGraph(document.getElementById("dailyStats"), rotTime, productiveTime);
+
+    const canvas = document.getElementById("dailyStats");
+    const canvasSize = 250; // Set the graph size
+    canvas.width = canvasSize;
+    canvas.height = canvasSize;
+
+    // Generate the graph on the canvas
+    generateGraph(canvas, rotTime, productiveTime);
 }
 
 
-function convertToDisplayTime(timestamp){
+export function convertToDisplayTime(timestamp){
     if (timestamp < 0) {
         return "0:00:00";
     }
     let extraZeroMinutes = "";
     let extraZeroSeconds = "";
-    if (Math.floor((timestamp%3600)/60) < 10){
+    if (Math.floor((timestamp%3600) / 60) < 10){
         extraZeroMinutes = "0";
     }
     if (timestamp%60 < 10){
@@ -57,7 +60,7 @@ function updateElapsedTime() {
                 timeRotRaw += elapsedTime;
             }
 
-            document.getElementById("timer").innerText = `Time bank: ${convertToDisplayTime(timeRaw)}`;
+            document.getElementById("timer").innerText = `Time Bank ${convertToDisplayTime(timeRaw)}`;
             document.getElementById("productiveTimer").innerText = `Productive time: ${convertToDisplayTime(timeProductiveRaw)}`;
             document.getElementById("rotTimer").innerText = `Rot time: ${convertToDisplayTime(timeRotRaw)}`;
     });
@@ -65,8 +68,8 @@ function updateElapsedTime() {
 
 updateElapsedTime(); // this is just so it displays on the first second
 setInterval(updateElapsedTime, 1000);
-const plusButton = document.getElementById("plusButton");
-const minusButton = document.getElementById("minusButton");
+const prodButton = document.getElementById("prodButton");
+const unprodButton = document.getElementById("unprodButton");
 const getApiKeyButton = document.getElementById("getApiKeyButton");
 
 let productiveSites = [];
@@ -92,7 +95,7 @@ chrome.runtime.sendMessage({ action: "checkCurrentSite" }, function(response) {
         url = response.url
     }
 
-    plusButton.addEventListener("click", function() {
+    prodButton.addEventListener("click", function() {
         if (url) {
             if (unproductiveSites.includes(url)) {
                 const index = unproductiveSites.indexOf(url);
@@ -104,7 +107,7 @@ chrome.runtime.sendMessage({ action: "checkCurrentSite" }, function(response) {
             }
         }
     });
-    minusButton.addEventListener("click", function() {
+    unprodButton.addEventListener("click", function() {
         //chrome.runtime.sendMessage({ action: "updateBody" });
         if (url) {
             if (productiveSites.includes(url)) {
