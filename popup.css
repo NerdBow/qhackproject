@@ -1,0 +1,95 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #24273a;
+    color: #f0c6c6;
+    line-height: 1.6;
+
+    border: 4px inset #b7bdf8;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #eed49f;
+}
+
+h2 {
+    font-size: 20px;
+    margin-top: 20px;
+    color: #f0c6c6;
+}
+
+p {
+    margin-bottom: 10px;
+}
+
+#timer {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ed8796;
+    margin-top: 10px;
+}
+
+/* Flex Container for Buttons */
+#buttonContainer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/*  Share Current Stats Button  */
+button#shareButton {
+    padding: 10px 15px;
+    background-color: #85c1dc;
+    color: #737994;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.6s ease, color 0.6s ease;
+}
+
+button#shareButton:hover {
+    background-color: #8caaee;
+    color: #494d64;
+    transition: background-color 0.6s ease;
+    transition: color 0.3s ease;
+}
+
+/*  Prod/unprod chars  */
+button#prodButton, button#unprodButton {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+    text-align: center;
+    padding: 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.6s ease, color 0.6s ease;
+}
+
+button#prodButton {
+    background-color: #a6da95;
+    color: #737994;
+}
+
+button#prodButton:hover {
+    background-color: #93c284;
+    color: #494d64;
+    transition: background-color 0.6s ease, color 0.3s ease-out;
+}
+
+button#unprodButton {
+    background-color: #f38ba8;
+    color: #737994;
+}
+
+button#unprodButton:hover {
+    background-color: #db7f99;
+    color: #494d64;
+    transition: background-color 0.6s ease, color 0.3s ease-out;
+}
