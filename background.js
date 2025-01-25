@@ -1,7 +1,7 @@
 const productiveSites = ["docs.google.com", "stackoverflow.com", "khanacademy.org"];
 const unproductiveSites = ["facebook.com", "youtube.com","reddit.com"];
 //import { counter, setIt, getIncrement } from "./scripts/timer.js";
-import { badSiteTimer, goodSiteTimer, neutralSiteTimer, timerValue, siteModifier, startTime, setStartTime } from "./scripts/timer.js";
+import { badSiteTimer, goodSiteTimer, neutralSiteTimer } from "./scripts/timer.js";
 
 //setIt(1);
 

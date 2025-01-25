@@ -1,4 +1,4 @@
-import { siteModifier, timerValue } from "./scripts/timer.js";
+import { productiveTime, rotTime, siteModifier, timerValue } from "./scripts/timer.js";
 //import { getIncrement } from "./background.js"
 //import { increment } from "./background.js";
 
@@ -19,7 +19,17 @@ function updateElapsedTime() {
             const elapsedTime = Math.floor((currentTime - startTime) / 1000);  // Elapsed time in seconds
             //const modifier = chrome.storage.local.get(['siteModifier']);
             // Display the elapsed time in the popup
-            document.getElementById("counter").innerText = `${timerValue + elapsedTime*siteModifier} seconds`;
+            document.getElementById("timer").innerText = `Time bank: ${timerValue + elapsedTime*siteModifier} seconds`;
+            if (siteModifier == 1){
+                document.getElementById("productiveTimer").innerText = `Producitve time: ${productiveTime + elapsedTime} seconds`;
+            } else{
+                document.getElementById("productiveTimer").innerText = `Producitve time: ${productiveTime} seconds`;
+            }
+            if (siteModifier == -1){
+                document.getElementById("rotTimer").innerText = `Rot time: ${rotTime + elapsedTime} seconds`;
+            } else{
+                document.getElementById("rotTimer").innerText = `Rot time: ${rotTime} seconds`;
+            }
     });
 }
 
