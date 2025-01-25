@@ -5,7 +5,6 @@ document.getElementById("shareButton").addEventListener("click", () => {
     updateTimer();
     console.log("Productive Time:", productiveTime, "Rot Time:", rotTime);
     getClipboardImage(rotTime, productiveTime);
-     //alert("Image copied to clipboard!");
 });
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -29,7 +28,7 @@ async function displayGraph() {
     generateGraph(canvas, rotTime, productiveTime);
 }
 
-function convertToDisplayTime(timestamp){
+export function convertToDisplayTime(timestamp){
     if (timestamp < 0){
         return "0:00:00";
     }

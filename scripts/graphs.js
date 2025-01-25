@@ -1,3 +1,5 @@
+import { convertToDisplayTime } from "../popup.js";
+
 export function createCanvas(width, height) {
     const canvas = document.createElement("canvas");
     canvas.width = width;
@@ -24,7 +26,7 @@ export function generateGraph(canvas, rotTime, productiveTime) {
 
     // Title Text
     ctx.font = "" + (canvas.width / 500) * 40 + "px Arial";
-    ctx.fillStyle = "rgb(202, 211, 245)";
+    ctx.fillStyle = "rgb(140, 170, 238)";
     ctx.textAlign = "center";
     ctx.textBaseline = "top";
     ctx.fillText("Daily Rot Chart", canvas.width / 2, canvas.height / 10);
@@ -38,11 +40,11 @@ export function generateGraph(canvas, rotTime, productiveTime) {
 
     ctx.fillStyle = "rgb(237, 135, 150)";
     ctx.fillRect(padding, canvas.height - padding - sqaureSize, sqaureSize, sqaureSize);
-    ctx.fillText("Rot Time", padding * 2 + sqaureSize, canvas.height - padding - sqaureSize);
+    ctx.fillText(`Rot Time (${convertToDisplayTime(rotTime)})`, padding * 2 + sqaureSize, canvas.height - padding - sqaureSize);
 
     ctx.fillStyle = "rgb(166, 218, 149)";
     ctx.fillRect(padding, canvas.height - sqaureSize * 2 - padding * 2, sqaureSize, sqaureSize);
-    ctx.fillText("Productive Time", padding * 2 + sqaureSize, canvas.height - padding * 2 - sqaureSize * 2);
+    ctx.fillText(`Productive Time (${convertToDisplayTime(productiveTime)})`, padding * 2 + sqaureSize, canvas.height - padding * 2 - sqaureSize * 2);
 
     // Stroke settings
     ctx.lineWidth = (canvas.width / 10);
