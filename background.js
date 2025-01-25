@@ -42,13 +42,13 @@ async function checkSite(url, tabId){
     if (contentToShow.trim() == "Unproductive") {
         console.log("Bad: This site might hurt your productivity.");
         chrome.action.setBadgeText({ text: "Bad" });
-        chrome.action.setBadgeBackgroundColor({ color: "red" });
+        chrome.action.setBadgeBackgroundColor({ color: "#f38ba8" });
         //chrome.tabs.update(tabId, { url: redirectUrl });
     }
     else if (contentToShow.trim() == "Productive") {
         console.log("Good: This site helps your productivity!");
         chrome.action.setBadgeText({ text: "Good"});
-        chrome.action.setBadgeBackgroundColor({ color: "green" });
+        chrome.action.setBadgeBackgroundColor({ color: "#a6e3a1" });
     }
     else {
         console.log(contentToShow);
