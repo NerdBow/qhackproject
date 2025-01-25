@@ -67,6 +67,8 @@ updateElapsedTime(); // this is just so it displays on the first second
 setInterval(updateElapsedTime, 1000);
 const plusButton = document.getElementById("plusButton");
 const minusButton = document.getElementById("minusButton");
+const getApiKeyButton = document.getElementById("getApiKeyButton");
+
 let productiveSites = [];
 let unproductiveSites = [];
 
@@ -103,6 +105,7 @@ chrome.runtime.sendMessage({ action: "checkCurrentSite" }, function(response) {
         }
     });
     minusButton.addEventListener("click", function() {
+        //chrome.runtime.sendMessage({ action: "updateBody" });
         if (url) {
             if (productiveSites.includes(url)) {
                 console.log(url)
@@ -115,4 +118,8 @@ chrome.runtime.sendMessage({ action: "checkCurrentSite" }, function(response) {
             }
         }
     });
+});
+
+getApiKeyButton.addEventListener("click", function () {
+    chrome.tabs.create({ url: "https://aistudio.google.com/app/prompts/new_chat?_gl=1*ij52k8*_ga*MTg0MTg5NjI0NC4xNzM3NzkyMDk1*_ga_P1DBVKWT6V*MTczNzgzOTgyMy4yLjAuMTczNzgzOTgyNS41OC4wLjIxNDM2MTMxNQ.." });
 });
