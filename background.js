@@ -4,6 +4,15 @@ const productiveSites = ["docs.google.com", "stackoverflow.com", "khanacademy.or
 const unproductiveSites = ["facebook.com", "youtube.com","reddit.com"];
 const redirectUrl = "https://www.wikipedia.org";
 
+chrome.storage.local.clear(function() {
+    if (chrome.runtime.lastError) {
+        console.error("Error clearing local storage: ", chrome.runtime.lastError);
+    } else {
+        console.log("Local storage cleared successfully.");
+    }
+});
+
+
 const apiKey = CONFIG.API_KEY;
 
 async function generateContent(query) {
@@ -39,50 +48,50 @@ async function generateContent(query) {
 async function checkSite(url, tabId) {
     let productiveSites = [];
     let unproductiveSites = [];
+    let contentToShow = ""
 
-    chrome.storage.local.get(["productiveSites", "unproductiveSites"], function(result) {
+    chrome.storage.local.get(["productiveSites", "unproductiveSites"], async function(result) {
         productiveSites = result.productiveSites ? JSON.parse(result.productiveSites) : [];
         unproductiveSites = result.unproductiveSites ? JSON.parse(result.unproductiveSites) : [];
-    });
 
-    let contentToShow = ""
-    if (productiveSites.includes(url)) {
-        contentToShow = "Productive";
-    }
-    else if (unproductiveSites.includes(url)) {
-        contentToShow = "Unproductive";
-    }
-    else {
-        console.log(`Used chat for ${url}`)
-        const domain = new URL(url).hostname.replace("www.", "");
-        contentToShow = await generateContent(`Give me a one word response, telling me whether the following website is productive or unproductive: ${domain}`);
+        if (productiveSites.includes(url)) {
+            contentToShow = "Productive";
+        }
+        else if (unproductiveSites.includes(url)) {
+            contentToShow = "Unproductive";
+        }
+        else {
+            console.log(`Used AI for ${url}`)
+            const domain = new URL(url).hostname.replace("www.", "");
+            contentToShow = await generateContent(`Give me a one word response, telling me whether the following website is productive or unproductive: ${domain}`);
+            if (contentToShow.trim() == "Unproductive") {
+                unproductiveSites.push(url);
+            }
+            else if (contentToShow.trim() == "Productive") {
+                productiveSites.push(url);
+            }
+            console.log(productiveSites);
+            console.log(unproductiveSites);
+            chrome.storage.local.set({
+                productiveSites: JSON.stringify(productiveSites),
+                unproductiveSites: JSON.stringify(unproductiveSites)
+            });
+        }
         if (contentToShow.trim() == "Unproductive") {
-            unproductiveSites.push(url);
+            console.log("Bad: This site might hurt your productivity.");
+            chrome.action.setBadgeText({ text: "Bad" });
+            chrome.action.setBadgeBackgroundColor({ color: "red" });
+            //chrome.tabs.update(tabId, { url: redirectUrl });
         }
         else if (contentToShow.trim() == "Productive") {
-            productiveSites.push(url);
+            console.log("Good: This site helps your productivity!");
+            chrome.action.setBadgeText({ text: "Good"});
+            chrome.action.setBadgeBackgroundColor({ color: "green" });
         }
-        console.log(productiveSites);
-        console.log(unproductiveSites);
-        chrome.storage.local.set({
-            productiveSites: JSON.stringify(productiveSites),
-            unproductiveSites: JSON.stringify(unproductiveSites)
-        });
-    }
-    if (contentToShow.trim() == "Unproductive") {
-        console.log("Bad: This site might hurt your productivity.");
-        chrome.action.setBadgeText({ text: "Bad" });
-        chrome.action.setBadgeBackgroundColor({ color: "red" });
-        //chrome.tabs.update(tabId, { url: redirectUrl });
-    }
-    else if (contentToShow.trim() == "Productive") {
-        console.log("Good: This site helps your productivity!");
-        chrome.action.setBadgeText({ text: "Good"});
-        chrome.action.setBadgeBackgroundColor({ color: "green" });
-    }
-    else {
-        console.log(contentToShow);
-    }
+        else {
+            console.log(contentToShow);
+        }
+    });
     /*if (unproductiveSites.includes(domain)) {
         console.log("Bad: This site might hurt your productivity.");
         chrome.action.setBadgeText({ text: "Bad" });

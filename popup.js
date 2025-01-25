@@ -23,15 +23,24 @@ chrome.runtime.sendMessage({ action: "checkCurrentSite" }, function(response) {
     }
 
     plusButton.addEventListener("click", function() {
-        if (url && !productiveSites.includes(url) && !unproductiveSites.includes(url)) {
-            productiveSites.push(url);
-            updateLocalStorage();
+        if (url) {
+            if (unproductiveSites.includes(url)) {
+                const index = unproductiveSites.indexOf(url);
+                unproductiveSites.splice(index, 1);
+                productiveSites.push(url);
+                updateLocalStorage();
+            }
         }
     });
     minusButton.addEventListener("click", function() {
-        if (url && !productiveSites.includes(url) && !unproductiveSites.includes(url)) {
-            unproductiveSites.push(url);
-            updateLocalStorage();
+        if (url) {
+            if (productiveSites.includes(url)) {
+                console.log(url)
+                const index = productiveSites.indexOf(url);
+                productiveSites.splice(index, 1);
+                unproductiveSites.push(url);
+                updateLocalStorage();
+            }
         }
     });
 });
