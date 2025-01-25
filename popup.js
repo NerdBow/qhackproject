@@ -14,11 +14,8 @@ function updateElapsedTime() {
     // Get the startTime from chrome.storage.local asynchronously
     chrome.storage.local.get(['startTime'], function(result) {
         const startTime = result.startTime;
-        // Check if startTime exists and is valid
             const currentTime = Date.now();
             const elapsedTime = Math.floor((currentTime - startTime) / 1000);  // Elapsed time in seconds
-            //const modifier = chrome.storage.local.get(['siteModifier']);
-            // Display the elapsed time in the popup
             let timeRaw = timerValue + elapsedTime*siteModifier;
             let timeProductiveRaw = productiveTime;
             let timeRotRaw = rotTime;
@@ -29,20 +26,7 @@ function updateElapsedTime() {
                 timeRotRaw += elapsedTime;
             }
 
-            //document.getElementById("timer").innerText = `Time bank: ${timerValue + elapsedTime*siteModifier} seconds`;
             document.getElementById("timer").innerText = `Time bank: ${convertToDisplayTime(timeRaw)}`;
-            /*
-            if (siteModifier == 1){
-                document.getElementById("productiveTimer").innerText = `Productive time: ${productiveTime + elapsedTime} seconds`;
-            } else{
-                document.getElementById("productiveTimer").innerText = `Productive time: ${productiveTime} seconds`;
-            }
-            if (siteModifier == -1){
-                document.getElementById("rotTimer").innerText = `Rot time: ${rotTime + elapsedTime} seconds`;
-            } else{
-                document.getElementById("rotTimer").innerText = `Rot time: ${rotTime} seconds`;
-            }
-                */
             document.getElementById("productiveTimer").innerText = `Productive time: ${convertToDisplayTime(timeProductiveRaw)}`;
             document.getElementById("rotTimer").innerText = `Rot time: ${convertToDisplayTime(timeRotRaw)}`;
     });
