@@ -34,10 +34,10 @@ chrome.storage.local.get('rotTime', (data) => {
     }
 });
 
-export function setStartTime(newStartTime) {
-    startTime = newStartTime;
-    chrome.storage.local.set({ startTime: newStartTime });
-}
+//export function setStartTime(newStartTime) {
+//    startTime = newStartTime;
+//    chrome.storage.local.set({ startTime: newStartTime });
+//}
 
 export function badSiteTimer(){
     updateTimer();

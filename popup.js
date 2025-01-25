@@ -1,15 +1,15 @@
 import { productiveTime, rotTime, siteModifier, timerValue } from "./scripts/timer.js";
-//import { getIncrement } from "./background.js"
-//import { increment } from "./background.js";
-
-//function updatePopupCounter() {
-//    const timerValue = getTime();
-//    document.getElementById("counter").innerHTML = timerValue;
-//}
-//etInterval(updatePopupCounter, 1000);
-//export function setIt(){
-  //  setInterval(counter, 1000, 1);
-//}
+function convertToDisplayTime(timestamp){
+    let extraZeroMinutes = "";
+    let extraZeroSeconds = "";
+    if (Math.floor((timestamp%3600)/60) < 10){
+        extraZeroMinutes = "0";
+    }
+    if (timestamp%60 < 10){
+        extraZeroSeconds = "0";
+    }
+    return (Math.floor(timestamp/3600) + ":" + extraZeroMinutes + Math.floor((timestamp%3600)/60) + ":" + extraZeroSeconds + timestamp%60);
+}
 function updateElapsedTime() {
     // Get the startTime from chrome.storage.local asynchronously
     chrome.storage.local.get(['startTime'], function(result) {
@@ -19,17 +19,32 @@ function updateElapsedTime() {
             const elapsedTime = Math.floor((currentTime - startTime) / 1000);  // Elapsed time in seconds
             //const modifier = chrome.storage.local.get(['siteModifier']);
             // Display the elapsed time in the popup
-            document.getElementById("timer").innerText = `Time bank: ${timerValue + elapsedTime*siteModifier} seconds`;
+            let timeRaw = timerValue + elapsedTime*siteModifier;
+            let timeProductiveRaw = productiveTime;
+            let timeRotRaw = rotTime;
             if (siteModifier == 1){
-                document.getElementById("productiveTimer").innerText = `Producitve time: ${productiveTime + elapsedTime} seconds`;
+                timeProductiveRaw += elapsedTime;
+            }
+            if (siteModifier == -1){
+                timeRotRaw += elapsedTime;
+            }
+
+            //document.getElementById("timer").innerText = `Time bank: ${timerValue + elapsedTime*siteModifier} seconds`;
+            document.getElementById("timer").innerText = `Time bank: ${convertToDisplayTime(timeRaw)}`;
+            /*
+            if (siteModifier == 1){
+                document.getElementById("productiveTimer").innerText = `Productive time: ${productiveTime + elapsedTime} seconds`;
             } else{
-                document.getElementById("productiveTimer").innerText = `Producitve time: ${productiveTime} seconds`;
+                document.getElementById("productiveTimer").innerText = `Productive time: ${productiveTime} seconds`;
             }
             if (siteModifier == -1){
                 document.getElementById("rotTimer").innerText = `Rot time: ${rotTime + elapsedTime} seconds`;
             } else{
                 document.getElementById("rotTimer").innerText = `Rot time: ${rotTime} seconds`;
             }
+                */
+            document.getElementById("productiveTimer").innerText = `Productive time: ${convertToDisplayTime(timeProductiveRaw)}`;
+            document.getElementById("rotTimer").innerText = `Rot time: ${convertToDisplayTime(timeRotRaw)}`;
     });
 }
 
