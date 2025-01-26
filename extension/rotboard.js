@@ -1,5 +1,4 @@
 import CONFIG from "./setting/config.js";
-// Sample friends list
 
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -31,10 +30,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       friendsListContainer.appendChild(friendElement);
     });
     
-    // Add the friends list to the page
     document.getElementById("friends-list-page").appendChild(friendsListContainer);
   } catch (error) {
-    console.error("Error fetching friends list:", error);
+    console.error("Error fetching RotBoard:", error);
     return;
   }
 });

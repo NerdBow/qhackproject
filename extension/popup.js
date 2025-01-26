@@ -135,6 +135,6 @@ getApiKeyButton.addEventListener("click", function () {
 });
 
 document.getElementById("friends-list-button").addEventListener("click", () => {
-    window.location.href = "friends.html";
+    window.location.href = "rotboard.html";
 });
   
