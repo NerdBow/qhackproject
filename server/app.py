@@ -26,7 +26,8 @@ def handle_users():
 
         if username is None:
             return jsonify({"Error": "Unauthorized"}), 401
-        database.add_user(get_db(), username)
+        if not database.add_user(get_db(), username):
+            return jsonify({"StatusCode": 400}), 400
         return jsonify({"StatusCode": 200}), 200
 
     elif request.method == "PUT":

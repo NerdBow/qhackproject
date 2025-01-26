@@ -12,9 +12,13 @@ def setup_table(db):
 
 
 def add_user(db, username):
-    with db:
-        db.cursor().execute(
-            "INSERT INTO users (username, rotTime) VALUES(?, ?)", (username, 0))
+    try:
+        with db:
+            db.cursor().execute(
+                "INSERT INTO users (username, rotTime) VALUES(?, ?)", (username, 0))
+            return True
+    except:
+        return False
 
 
 def update_rot_time(db, username, rotTime):
