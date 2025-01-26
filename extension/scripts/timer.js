@@ -21,7 +21,7 @@ chrome.storage.local.get('siteModifier', (data) => {
 });
 
 chrome.storage.local.get('startTime', (data) => {
-    if (data.startTime = undefined) {
+    if (data.startTime !== undefined) {
       startTime = data.startTime;
     }
 });
