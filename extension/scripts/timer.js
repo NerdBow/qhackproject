@@ -61,7 +61,6 @@ export function updateTimer(){
     if (siteModifier === -1){
         rotTime += Math.floor((Date.now() - startTime) / 1000);
         chrome.storage.local.set({ rotTime: rotTime });
-        //console.log("Rot Time: " + rotTime);
     } else if (siteModifier === 1){
         productiveTime += Math.floor((Date.now() - startTime) / 1000);
         chrome.storage.local.set({ productiveTime: productiveTime });
@@ -76,17 +75,14 @@ export function updateTimer(){
 }
 
 export function reset(){
-    console.log("Rot Time: " + rotTime);
     if (doReset){
         doReset = false;
         chrome.storage.local.set({ doReset: doReset });
-        console.log("AAAAAAAAAAAAA");
         rotTime = 0;
         productiveTime = 0;
         chrome.storage.local.set({ rotTime: rotTime });
         chrome.storage.local.set({ productiveTime: productiveTime });
     }
-    console.log("BBBBBBBBBBBB");
 }
 
 export async function checkRedirect(){
@@ -105,7 +101,6 @@ export async function checkRedirect(){
 }
 
 export function setReset(){
-    console.log("It has been set.");
     doReset = true;
     chrome.storage.local.set({ doReset: doReset });
 }
