@@ -10,7 +10,7 @@ export let newDay = "";
 // This just retrives all the old values for the variables from local storage since they get killed when it runs again
 chrome.storage.local.get('timerValue', (data) => {
     if (data.timerValue !== undefined) {
-      timerValue = data.timeValue;
+      timerValue = data.timerValue;
     }
 });
 
