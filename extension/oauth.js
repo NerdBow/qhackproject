@@ -40,12 +40,18 @@ window.onload = function () {
         console.log("User Info:", userInfo);
 
         // Save the email to chrome.storage.local
-        const index = userInfo.email.indexOf("@");
-        const email = userInfo.email.slice(0, index);
-        chrome.storage.local.set({ email: email }, function () {
-          console.log("Email saved to chrome.storage.local");
-        });
+        let index = userInfo.email.indexOf("@");
+        let email = userInfo.email.slice(0, index);
+        console.log(email);
 
+        chrome.storage.local.get(["email"], function (result) {
+          if (!email) {
+            chrome.storage.local.set({ email: email }, function () {
+              console.log("Email saved to chrome.storage.local");
+            });
+          }
+        });
+            
         // Replace the button with a "Signed in as..." message
         const parent = signInButton.parentNode;
         const signedInMessage = document.createElement("p");
