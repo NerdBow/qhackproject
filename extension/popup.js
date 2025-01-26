@@ -28,7 +28,6 @@ async function displayGraph() {
     generateGraph(canvas, rotTime, productiveTime);
 }
 
-
 export function convertToDisplayTime(timestamp){
     if (timestamp < 0) {
         return "0:00:00";
