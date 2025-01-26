@@ -2,45 +2,28 @@ export let timerValue = 0;
 export let siteModifier = 0;
 export let productiveTime = 0;
 export let rotTime = 0;
-export let startTime = Date.now();
-export let date = new Date();
-export let currentDay = `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`;
-export let newDay = "";
+export let startTime = 0;
+let doReset = false;
 
 // This just retrives all the old values for the variables from local storage since they get killed when it runs again
-chrome.storage.local.get('timerValue', (data) => {
-    if (data.timerValue !== undefined) {
-      timerValue = data.timerValue;
+chrome.storage.local.get(['timerValue', 'siteModifier', 'productiveTime', 'rotTime', 'startTime', 'doReset'], function(result) {
+    if (result.timerValue !== undefined) {
+        timerValue = result.timerValue;
     }
-});
-
-chrome.storage.local.get('siteModifier', (data) => {
-    if (data.siteModifier !== undefined) {
-      siteModifier = data.siteModifier;
+    if (result.siteModifier !== undefined) {
+        siteModifier = result.siteModifier;
     }
-});
-
-chrome.storage.local.get('startTime', (data) => {
-    if (data.startTime !== undefined) {
-      startTime = data.startTime;
+    if (result.productiveTime !== undefined) {
+        productiveTime = result.productiveTime;
     }
-});
-
-chrome.storage.local.get('productiveTime', (data) => {
-    if (data.productiveTime !== undefined) {
-      productiveTime = data.productiveTime;
+    if (result.rotTime !== undefined) {
+        rotTime = result.rotTime;
     }
-});
-
-chrome.storage.local.get('rotTime', (data) => {
-    if (data.rotTime !== undefined) {
-      rotTime = data.rotTime;
+    if (result.startTime !== undefined) {
+        startTime = result.startTime;
     }
-});
-
-chrome.storage.local.get('currentDay', (data) => {
-    if (data.currentDay !== undefined) {
-      currentDay = data.currentDay;
+    if (result.doReset !== undefined) {
+        doReset = result.doReset;
     }
 });
 
@@ -65,6 +48,8 @@ export function neutralSiteTimer(){
 
 // This updates each of the timers
 export function updateTimer(){
+    console.log("Running updateTimer");
+    console.log("doReset: " + doReset);
     if (timerValue < 0) {
         timerValue = 0;
     }
@@ -80,11 +65,11 @@ export function updateTimer(){
         productiveTime += Math.floor((Date.now() - startTime) / 1000);
         chrome.storage.local.set({ productiveTime: productiveTime });
     }
-
     reset();
-    chrome.storage.local.set({ currentDay: currentDay });
-
     chrome.storage.local.set({ timerValue: timerValue });
+    chrome.storage.local.set({ rotTime: rotTime });
+    chrome.storage.local.set({ productiveTime: productiveTime });
+
     startTime = Date.now();
     chrome.storage.local.set({ startTime: startTime });
 }
@@ -105,14 +90,13 @@ export function convertToDisplayTime(timestamp){
 }
 
 export function reset(){
-    date = new Date();
-    newDay = `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`;
-    if (newDay != currentDay){
-        currentDay = newDay;
+    if (doReset){
+        doReset = false;
+        chrome.storage.local.set({ doReset: doReset });
         rotTime = 0;
-        chrome.storage.local.set({ rotTime: rotTime });
         productiveTime = 0;
-        chrome.storage.local.set({ productiveTime: productiveTime});
+        chrome.storage.local.set({ rotTime: rotTime });
+        chrome.storage.local.set({ productiveTime: productiveTime });
     }
 }
 
@@ -129,4 +113,9 @@ export async function checkRedirect(){
             });
         }
     });
+}
+
+export function setReset(){
+    doReset = true;
+    chrome.storage.local.set({ doReset: doReset });
 }

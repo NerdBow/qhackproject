@@ -1,5 +1,5 @@
 import CONFIG from "./setting/config.js";
-import { badSiteTimer, goodSiteTimer, neutralSiteTimer, checkRedirect, rotTime, updateTimer } from "./scripts/timer.js";
+import { badSiteTimer, goodSiteTimer, neutralSiteTimer, checkRedirect, reset, updateTimer, setReset } from "./scripts/timer.js";
 
 // chrome.storage.local.clear(function() {
 //     if (chrome.runtime.lastError) {
@@ -141,6 +141,10 @@ chrome.alarms.create('checkTimer', {
     periodInMinutes: 0.5
 });
 
+chrome.alarms.create('dailyAlarm', {
+    periodInMinutes: 1440
+});
+
 chrome.alarms.onAlarm.addListener((alarm) => {
     if (alarm.name === 'checkTimer') {
         checkRedirect();
@@ -151,5 +155,8 @@ chrome.alarms.onAlarm.addListener((alarm) => {
             }
             const response = fetch("http://" + CONFIG.BACKEND_API + "/users", {method: "PUT", headers: {"Content-Type": "application/json"}, body: JSON.stringify({"username": "lenny", "rotTime": rotTime})}); //TODO: PLEAE DO IT
         });
+    }
+    if (alarm.name === 'dailyAlarm') {
+        setReset();
     }
 });

@@ -33,22 +33,22 @@ async function displayGraph() {
 function updateElapsedTime() {
     // Get the startTime from chrome.storage.local asynchronously
     chrome.storage.local.get(['startTime'], function(result) {
-        const startTime = result.startTime;
-            const currentTime = Date.now();
-            const elapsedTime = Math.floor((currentTime - startTime) / 1000);  // Elapsed time in seconds
-            let timeRaw = timerValue + elapsedTime*siteModifier;
-            let timeProductiveRaw = productiveTime;
-            let timeRotRaw = rotTime;
-            if (siteModifier == 1){
-                timeProductiveRaw += elapsedTime;
-            }
-            if (siteModifier == -1){
-                timeRotRaw += elapsedTime;
-            }
+        let startTime = result.startTime;
+        let currentTime = Date.now();
+        let elapsedTime = Math.floor((currentTime - startTime) / 1000);  // Elapsed time in seconds
+        let timeRaw = timerValue + elapsedTime*siteModifier;
+        let timeProductiveRaw = productiveTime;
+        let timeRotRaw = rotTime;
+        if (siteModifier == 1){
+            timeProductiveRaw += elapsedTime;
+        }
+        if (siteModifier == -1){
+            timeRotRaw += elapsedTime;
+        }
 
-            document.getElementById("timer").innerText = `Time Bank ${convertToDisplayTime(timeRaw)}`;
-            document.getElementById("productiveTimer").innerText = `Productive time: ${convertToDisplayTime(timeProductiveRaw)}`;
-            document.getElementById("rotTimer").innerText = `Rot time: ${convertToDisplayTime(timeRotRaw)}`;
+        document.getElementById("timer").innerText = `Time Bank ${convertToDisplayTime(timeRaw)}`;
+        document.getElementById("productiveTimer").innerText = `Productive time: ${convertToDisplayTime(timeProductiveRaw)}`;
+        document.getElementById("rotTimer").innerText = `Rot time: ${convertToDisplayTime(timeRotRaw)}`;
     });
 }
 
@@ -58,6 +58,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
     updateTimer();
 });
+
 updateElapsedTime(); // this is just so it displays on the first second
 setInterval(updateElapsedTime, 1000);
 
