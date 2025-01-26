@@ -39,6 +39,11 @@ window.onload = function () {
       .then((userInfo) => {
         console.log("User Info:", userInfo);
 
+        // Save the email to chrome.storage.local
+        chrome.storage.local.set({ email: userInfo.email }, function () {
+          console.log("Email saved to chrome.storage.local");
+        });
+
         // Replace the button with a "Signed in as..." message
         const parent = signInButton.parentNode;
         const signedInMessage = document.createElement("p");
