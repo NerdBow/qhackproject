@@ -32,6 +32,7 @@ def handle_users():
         data = request.get_json()
         username = data.get("username")
         rotTime = data.get("rotTime")
+        print(data)
 
         if username is None:
             return jsonify({"Error": "Unauthorized"}), 401
