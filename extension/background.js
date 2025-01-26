@@ -148,6 +148,13 @@ chrome.alarms.create('dailyAlarm', {
 chrome.alarms.onAlarm.addListener((alarm) => {
     if (alarm.name === 'checkTimer') {
         checkRedirect();
+        updateTimer();
+        chrome.storage.local.get("email", (data) => {
+            if  (!data.email) {
+                return
+            }
+            const response = fetch("http://" + CONFIG.BACKEND_API + "/users", {method: "PUT", headers: {"Content-Type": "application/json"}, body: JSON.stringify({"username": "lenny", "rotTime": rotTime})}); //TODO: PLEAE DO IT
+        });
     }
     if (alarm.name === 'dailyAlarm') {
         setReset();

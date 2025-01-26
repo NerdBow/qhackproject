@@ -1,5 +1,5 @@
-import { productiveTime, rotTime, siteModifier, timerValue, updateTimer, reset, goodSiteTimer, badSiteTimer, neutralSiteTimer } from "./scripts/timer.js";
-import { getClipboardImage, generateGraph, createCanvas} from "./scripts/graphs.js";
+import { getClipboardImage, generateGraph} from "./scripts/graphs.js";
+import { convertToDisplayTime, badSiteTimer, goodSiteTimer, productiveTime, rotTime, siteModifier, timerValue, updateTimer} from "./scripts/timer.js";
 
 document.getElementById("shareButton").addEventListener("click", () => {
     updateTimer();
@@ -29,20 +29,6 @@ async function displayGraph() {
 }
 
 
-export function convertToDisplayTime(timestamp){
-    if (timestamp < 0) {
-        return "0:00:00";
-    }
-    let extraZeroMinutes = "";
-    let extraZeroSeconds = "";
-    if (Math.floor((timestamp%3600) / 60) < 10){
-        extraZeroMinutes = "0";
-    }
-    if (timestamp%60 < 10){
-        extraZeroSeconds = "0";
-    }
-    return (Math.floor(timestamp/3600) + ":" + extraZeroMinutes + Math.floor((timestamp%3600)/60) + ":" + extraZeroSeconds + timestamp%60);
-}
 
 function updateElapsedTime() {
     // Get the startTime from chrome.storage.local asynchronously
@@ -136,6 +122,6 @@ getApiKeyButton.addEventListener("click", function () {
 });
 
 document.getElementById("friends-list-button").addEventListener("click", () => {
-    window.location.href = "friends.html";
+    window.location.href = "rotboard.html";
 });
   
