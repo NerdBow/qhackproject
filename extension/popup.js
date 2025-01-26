@@ -1,5 +1,5 @@
 import { getClipboardImage, generateGraph, createCanvas} from "./scripts/graphs.js";
-import { badSiteTimer, goodSiteTimer, productiveTime, rotTime, siteModifier, timerValue, updateTimer } from "./scripts/timer.js";
+import { productiveTime, rotTime, siteModifier, timerValue, updateTimer, reset } from "./scripts/timer.js";
 
 document.getElementById("shareButton").addEventListener("click", () => {
     updateTimer();
@@ -66,8 +66,15 @@ function updateElapsedTime() {
     });
 }
 
+document.addEventListener("DOMContentLoaded", async () => {
+    const result = await new Promise((resolve) => {
+        chrome.storage.local.get(["mykey"], (data) => resolve(data));
+    });
+    updateTimer();
+});
 updateElapsedTime(); // this is just so it displays on the first second
 setInterval(updateElapsedTime, 1000);
+
 const prodButton = document.getElementById("prodButton");
 const unprodButton = document.getElementById("unprodButton");
 const getApiKeyButton = document.getElementById("getApiKeyButton");
