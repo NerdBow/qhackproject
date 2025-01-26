@@ -1,5 +1,5 @@
 import { getClipboardImage, generateGraph, createCanvas} from "./scripts/graphs.js";
-import { badSiteTimer, goodSiteTimer, productiveTime, rotTime, siteModifier, timerValue, updateTimer } from "./scripts/timer.js";
+import { badSiteTimer, goodSiteTimer, productiveTime, rotTime, siteModifier, timerValue, updateTimer} from "./scripts/timer.js";
 
 document.getElementById("shareButton").addEventListener("click", () => {
     updateTimer();
@@ -66,8 +66,15 @@ function updateElapsedTime() {
     });
 }
 
+document.addEventListener("DOMContentLoaded", async () => {
+    const result = await new Promise((resolve) => {
+        chrome.storage.local.get(["mykey"], (data) => resolve(data));
+    });
+    updateTimer();
+});
 updateElapsedTime(); // this is just so it displays on the first second
 setInterval(updateElapsedTime, 1000);
+
 const prodButton = document.getElementById("prodButton");
 const unprodButton = document.getElementById("unprodButton");
 const getApiKeyButton = document.getElementById("getApiKeyButton");
@@ -126,3 +133,8 @@ chrome.runtime.sendMessage({ action: "checkCurrentSite" }, function(response) {
 getApiKeyButton.addEventListener("click", function () {
     chrome.tabs.create({ url: "https://aistudio.google.com/app/prompts/new_chat?_gl=1*ij52k8*_ga*MTg0MTg5NjI0NC4xNzM3NzkyMDk1*_ga_P1DBVKWT6V*MTczNzgzOTgyMy4yLjAuMTczNzgzOTgyNS41OC4wLjIxNDM2MTMxNQ.." });
 });
+
+document.getElementById("friends-list-button").addEventListener("click", () => {
+    window.location.href = "friends.html";
+});
+  

@@ -1,5 +1,5 @@
 import CONFIG from "./setting/config.js";
-import { badSiteTimer, goodSiteTimer, neutralSiteTimer } from "./scripts/timer.js";
+import { badSiteTimer, goodSiteTimer, neutralSiteTimer, checkRedirect } from "./scripts/timer.js";
 
 // chrome.storage.local.clear(function() {
 //     if (chrome.runtime.lastError) {
@@ -133,5 +133,16 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.action === "setBadge") {
         chrome.action.setBadgeText({ text: message.text });
         chrome.action.setBadgeBackgroundColor({ color: message.color });
+    }
+});
+
+// Create alarm to go off every 30 seconds
+chrome.alarms.create('checkTimer', {
+    periodInMinutes: 0.5
+});
+
+chrome.alarms.onAlarm.addListener((alarm) => {
+    if (alarm.name === 'checkTimer') {
+        checkRedirect();
     }
 });
