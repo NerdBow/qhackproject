@@ -1,5 +1,8 @@
-import { productiveTime, rotTime, siteModifier, timerValue } from "./scripts/timer.js";
+import { productiveTime, rotTime, siteModifier, timerValue, reset, updateTimer } from "./scripts/timer.js";
 function convertToDisplayTime(timestamp){
+    if (timestamp < 0){
+        return "0:00:00";
+    }
     let extraZeroMinutes = "";
     let extraZeroSeconds = "";
     if (Math.floor((timestamp%3600)/60) < 10){
@@ -31,6 +34,13 @@ function updateElapsedTime() {
             document.getElementById("rotTimer").innerText = `Rot time: ${convertToDisplayTime(timeRotRaw)}`;
     });
 }
+
+document.addEventListener("DOMContentLoaded", async () => {
+    const result = await new Promise((resolve) => {
+        chrome.storage.local.get(["mykey"], (data) => resolve(data));
+    });
+    updateTimer();
+});
 
 updateElapsedTime(); // this is just so it displays on the first second
 setInterval(updateElapsedTime, 1000);

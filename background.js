@@ -73,3 +73,16 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
         checkSite(changeInfo.url, tabId);
     }
 });
+
+// Alarm to go off every 30 seconds to check redirect
+/*
+chrome.alarms.create('checkTimer', {
+    periodInMinutes: 0.5
+});
+
+chrome.alarms.onAlarm.addListener((alarm) => {
+    if (alarm.name === 'checkTimer') {
+        checkRedirect();
+    }
+});
+*/
