@@ -40,7 +40,9 @@ window.onload = function () {
         console.log("User Info:", userInfo);
 
         // Save the email to chrome.storage.local
-        chrome.storage.local.set({ email: userInfo.email }, function () {
+        const index = userInfo.email.indexOf("@");
+        const email = userInfo.email.slice(0, index);
+        chrome.storage.local.set({ email: email }, function () {
           console.log("Email saved to chrome.storage.local");
         });
 
