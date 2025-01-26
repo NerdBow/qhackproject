@@ -157,19 +157,6 @@ button#shareButton:hover {
     /* Maintain aspect ratio */
 }
 
-button#google_sign_in {
-    background-color: #0099ff;
-    font-size: 30px;  /* Adjust size as needed */
-    font-weight: bold; /* Make the "G" bold */
-    padding: 10px 20px; /* Add some padding to make it look nice */
-    border: none;  /* Remove button border */
-    cursor: pointer; /* Change cursor to pointer on hover */
-}
-
-button#google_sign_in:hover {
-    background-color: #74bdee;
-}
-
 #friends-list-container {
     display: flex;
     flex-direction: column;
