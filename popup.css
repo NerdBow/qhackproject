@@ -79,8 +79,23 @@ button {
     width: 60px; /* Adjust the button size */
     height: 60px;
     border-radius: 50%; /* Circular buttons */
-    transition: transform 0.2s ease, background-color 0.2s ease;
+    transition: transform 0.2s ease, background-color 0.6s ease, color 0.6s ease;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Optional shadow for depth */
+}
+
+button#getApiKeyButton {
+    padding: 10px 15px;
+    background-color: #f0c6c6;
+    color: #737994;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 14px;
+    transition: transform 0.2s ease, background-color 0.6s ease, color 0.6s ease;
+}
+
+button#getApiKeyButton:hover {
+    background-color: #d1abab;
 }
 
 /* Button Hover Effect */
@@ -115,13 +130,11 @@ button#shareButton {
     border-radius: 50%;
     cursor: pointer;
     font-size: 16px;
-    transition: background-color 0.6s ease, color 0.6s ease;
+    transition: transform 0.2s ease, background-color 0.6s ease, color 0.6s ease;
 }
 
 button#shareButton:hover {
     background-color: #8caaee;
-    color: #494d64;
-    transition: background-color 0.6s ease, color 0.3s ease-out;
 }
 
 /* Image Styling for Icons */
