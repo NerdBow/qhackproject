@@ -52,13 +52,13 @@ window.onload = function () {
           }
         });
             
-        // Replace the button with a "Signed in as..." message
-        const parent = signInButton.parentNode;
+        // Add a "Signed in as..." message
         const signedInMessage = document.createElement("p");
         signedInMessage.id = "signedInMessage";
         signedInMessage.textContent = `Signed in as: ${userInfo.email}`;
         signedInMessage.style.color = "#a6da95"; // Optional: style the text
-        parent.replaceChild(signedInMessage, signInButton);
+        signInButton.style.display = "none";
+        document.body.appendChild(signedInMessage);
       })
       .catch((error) => {
         console.error("Failed to fetch user info", error);
