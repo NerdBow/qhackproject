@@ -1,5 +1,5 @@
 import CONFIG from "./setting/config.js";
-import { badSiteTimer, goodSiteTimer, neutralSiteTimer, checkRedirect, reset, updateTimer, setReset } from "./scripts/timer.js";
+import { rotTime, badSiteTimer, goodSiteTimer, neutralSiteTimer, checkRedirect, reset, updateTimer, setReset } from "./scripts/timer.js";
 
 // chrome.storage.local.clear(function() {
 //     if (chrome.runtime.lastError) {
@@ -149,12 +149,7 @@ chrome.alarms.onAlarm.addListener((alarm) => {
     if (alarm.name === 'checkTimer') {
         checkRedirect();
         updateTimer();
-        chrome.storage.local.get("email", (data) => {
-            if  (!data.email) {
-                return
-            }
-            const response = fetch("http://" + CONFIG.BACKEND_API + "/users", {method: "PUT", headers: {"Content-Type": "application/json"}, body: JSON.stringify({"username": "lenny", "rotTime": rotTime})}); //TODO: PLEAE DO IT
-        });
+        fetch("http://" + CONFIG.BACKEND_API + "/users", {method: "PUT", headers: {"Content-Type": "application/json"}, body: JSON.stringify({"username": CONFIG.USERNAME, "rotTime": rotTime})});
     }
     if (alarm.name === 'dailyAlarm') {
         setReset();

@@ -1,5 +1,6 @@
 import { getClipboardImage, generateGraph} from "./scripts/graphs.js";
 import { convertToDisplayTime, badSiteTimer, goodSiteTimer, productiveTime, rotTime, siteModifier, timerValue, updateTimer} from "./scripts/timer.js";
+import CONFIG from "./setting/config.js";
 
 document.getElementById("shareButton").addEventListener("click", () => {
     updateTimer();
@@ -121,5 +122,21 @@ getApiKeyButton.addEventListener("click", function () {
 
 document.getElementById("friends-list-button").addEventListener("click", () => {
     window.location.href = "rotboard.html";
+});
+
+document.getElementById("registerButton").addEventListener("click", () => {
+    const response = fetch("http://" + CONFIG.BACKEND_API + "/users", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({"username": CONFIG.USERNAME})});
+    response.then((response) => {
+        if (response.ok) {
+            if (response.statusCode === 200) {
+                console.log("Registration successful");
+            } else if (response.statusCode === 400) {
+                console.log("Username already exists");
+            }
+        } else {
+            console.log("Username already exists");
+            document.getElementById("registerButton").style.backgroundColor = "red";
+        }
+    });
 });
   
