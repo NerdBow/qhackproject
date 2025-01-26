@@ -2,7 +2,7 @@ import CONFIG from "./setting/config.js";
 
 const productiveSites = ["docs.google.com", "stackoverflow.com", "khanacademy.org"];
 const unproductiveSites = ["facebook.com", "youtube.com","reddit.com"];
-import { badSiteTimer, goodSiteTimer, neutralSiteTimer } from "./scripts/timer.js";
+import { badSiteTimer, goodSiteTimer, neutralSiteTimer, checkRedirect } from "./scripts/timer.js";
 
 const redirectUrl = "https://www.wikipedia.org";
 
@@ -75,7 +75,6 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 });
 
 // Alarm to go off every 30 seconds to check redirect
-/*
 chrome.alarms.create('checkTimer', {
     periodInMinutes: 0.5
 });
@@ -85,4 +84,3 @@ chrome.alarms.onAlarm.addListener((alarm) => {
         checkRedirect();
     }
 });
-*/

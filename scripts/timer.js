@@ -95,12 +95,17 @@ export function reset(){
     }
 }
 
-/*
-export async function checkRedirect(){
-    const startTime = chrome.storage.local.get(['startTime']);
-    const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
-    if (timerValue + elapsedTime*siteModifier <= 0){
-        chrome.tabs.update(tabId, {url : "https://ckrisirkc.github.io/osuStreamSpeed.js/newindex.html"})
-    }
+export async function checkRedirect() {
+    chrome.storage.local.get(['startTime'], function(result) {
+        const startTime = result.startTime;
+        const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
+        if (timerValue + elapsedTime * siteModifier <= 0) {
+            chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+                if (tabs[0]) {
+                    const activeTab = tabs[0];
+                    chrome.tabs.update(activeTab.id, { url: "https://ckrisirkc.github.io/osuStreamSpeed.js/newindex.html" });
+                }
+            });
+        }
+    });
 }
-    */
