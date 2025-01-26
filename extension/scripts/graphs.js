@@ -1,5 +1,4 @@
-import { convertToDisplayTime } from "../popup.js";
-
+import { convertToDisplayTime } from "./timer.js";
 export function createCanvas(width, height) {
     const canvas = document.createElement("canvas");
     canvas.width = width;

@@ -1,5 +1,5 @@
 import CONFIG from "./setting/config.js";
-
+import { convertToDisplayTime } from "./scripts/timer.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
   try {
@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     
       const statusElement = document.createElement("span");
       statusElement.className = "friend-status";
-      statusElement.textContent = ` (${friend[2]})`;
+      statusElement.textContent = ` (${convertToDisplayTime(friend[2])})`;
     
       friendElement.appendChild(nameElement);
       friendElement.appendChild(statusElement);

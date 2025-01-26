@@ -89,6 +89,21 @@ export function updateTimer(){
     chrome.storage.local.set({ startTime: startTime });
 }
 
+export function convertToDisplayTime(timestamp){
+    if (timestamp < 0) {
+        return "0:00:00";
+    }
+    let extraZeroMinutes = "";
+    let extraZeroSeconds = "";
+    if (Math.floor((timestamp%3600) / 60) < 10){
+        extraZeroMinutes = "0";
+    }
+    if (timestamp%60 < 10){
+        extraZeroSeconds = "0";
+    }
+    return (Math.floor(timestamp/3600) + ":" + extraZeroMinutes + Math.floor((timestamp%3600)/60) + ":" + extraZeroSeconds + timestamp%60);
+}
+
 export function reset(){
     date = new Date();
     newDay = `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`;
