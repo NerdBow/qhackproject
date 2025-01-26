@@ -4,10 +4,6 @@ export let productiveTime = 0;
 export let rotTime = 0;
 export let startTime = 0;
 let doReset = false;
-//export let date = Date.now();
-//export let currentDay = Math.floor(date/60000);
-//export let currentDay = "";
-//export let newDay = "";
 
 // This just retrives all the old values for the variables from local storage since they get killed when it runs again
 chrome.storage.local.get(['timerValue', 'siteModifier', 'productiveTime', 'rotTime', 'startTime', 'doReset'], function(result) {
@@ -70,10 +66,7 @@ export function updateTimer(){
         productiveTime += Math.floor((Date.now() - startTime) / 1000);
         chrome.storage.local.set({ productiveTime: productiveTime });
     }
-    //console.log(currentDay + "BEFORE RESET");
     reset();
-    //chrome.storage.local.set({ currentDay: currentDay });
-    //console.log(currentDay + "AFTER RESET");
     chrome.storage.local.set({ timerValue: timerValue });
     chrome.storage.local.set({ rotTime: rotTime });
     chrome.storage.local.set({ productiveTime: productiveTime });
@@ -83,17 +76,12 @@ export function updateTimer(){
 }
 
 export function reset(){
-    //date = Date.now();
-    //newDay = Math.floor(date/60000);
     console.log("Rot Time: " + rotTime);
     if (doReset){
         doReset = false;
         chrome.storage.local.set({ doReset: doReset });
-        //currentDay = newDay;
-        //chrome.storage.local.set( { currentDay : newDay } );
         console.log("AAAAAAAAAAAAA");
         rotTime = 0;
-        //console.log("Rot" + rotTime);
         productiveTime = 0;
         chrome.storage.local.set({ rotTime: rotTime });
         chrome.storage.local.set({ productiveTime: productiveTime });

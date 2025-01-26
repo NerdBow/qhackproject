@@ -59,13 +59,6 @@ function updateElapsedTime() {
         if (siteModifier == -1){
             timeRotRaw += elapsedTime;
         }
-        /*
-        console.log("elapsed time" + elapsedTime);
-        console.log("rotTime" + rotTime);
-        console.log("time rot raw" + timeRotRaw);
-        console.log("current time" + Math.floor(currentTime));
-        console.log("site modifier" + siteModifier);
-        */
 
         document.getElementById("timer").innerText = `Time Bank ${convertToDisplayTime(timeRaw)}`;
         document.getElementById("productiveTimer").innerText = `Productive time: ${convertToDisplayTime(timeProductiveRaw)}`;
