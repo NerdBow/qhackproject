@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request, g
 from db import database
+import json
 
 
 def create_app():
@@ -54,4 +55,6 @@ def close_db(error):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    with open("config.json") as f:
+        config = json.load(f)
+        app.run(host=config["IP"], port=config["PORT"], debug=True)
