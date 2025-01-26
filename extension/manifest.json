@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "RotOrNot",
     "version": "1.0",
-    "permissions": ["tabs", "activeTab", "storage", "alarms"],
+    "permissions": ["tabs", "activeTab", "storage", "identity", "alarms"],
     "host_permissions": ["<all_urls>"],
     "icons": {
         "48": "/assets/brainRotIcon.png"
@@ -11,7 +11,13 @@
         "service_worker": "background.js",
         "type": "module"
     },
-    
+    "oauth2": {
+        "client_id": "834558567101-q1vesust5s4adaou85moqnef8dfcr3m3.apps.googleusercontent.com",
+        "scopes": [
+            "https://www.googleapis.com/auth/userinfo.email",
+            "https://www.googleapis.com/auth/userinfo.profile"
+        ]
+      },
     "action": {
         "default_popup": "popup.html",
         "default_icon": {
