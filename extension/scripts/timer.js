@@ -2,9 +2,11 @@ export let timerValue = 0;
 export let siteModifier = 0;
 export let productiveTime = 0;
 export let rotTime = 0;
-export let startTime = Date.now();
+export let startTime = 0;
 export let date = new Date();
-export let currentDay = `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`;
+date = new Date();
+export let currentDay = `${date.getMinutes()}-${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`;
+//export let currentDay = "";
 export let newDay = "";
 
 // This just retrives all the old values for the variables from local storage since they get killed when it runs again
@@ -17,12 +19,6 @@ chrome.storage.local.get('timerValue', (data) => {
 chrome.storage.local.get('siteModifier', (data) => {
     if (data.siteModifier !== undefined) {
       siteModifier = data.siteModifier;
-    }
-});
-
-chrome.storage.local.get('startTime', (data) => {
-    if (data.startTime = undefined) {
-      startTime = data.startTime;
     }
 });
 
@@ -41,9 +37,16 @@ chrome.storage.local.get('rotTime', (data) => {
 chrome.storage.local.get('currentDay', (data) => {
     if (data.currentDay !== undefined) {
       currentDay = data.currentDay;
+      console.log(data.currentDay + "CURRENT DAY VALUE IN STORAGE");
+      console.log(currentDay + "FROM STORAGE");
     }
 });
 
+chrome.storage.local.get('startTime', (data) => {
+    if (data.startTime !== undefined) {
+      startTime = data.startTime;
+    }
+});
 // These get called from background.js when the user switches a site
 export function badSiteTimer(){
     updateTimer();
@@ -80,25 +83,34 @@ export function updateTimer(){
         productiveTime += Math.floor((Date.now() - startTime) / 1000);
         chrome.storage.local.set({ productiveTime: productiveTime });
     }
-
+    console.log(currentDay + "BEFORE RESET");
     reset();
-    chrome.storage.local.set({ currentDay: currentDay });
-
+    //chrome.storage.local.set({ currentDay: currentDay });
+    console.log(currentDay + "AFTER RESET");
     chrome.storage.local.set({ timerValue: timerValue });
+    chrome.storage.local.set({ rotTime: rotTime });
+    chrome.storage.local.set({ productiveTime: productiveTime });
+
     startTime = Date.now();
     chrome.storage.local.set({ startTime: startTime });
 }
 
 export function reset(){
     date = new Date();
-    newDay = `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`;
+    console.log(date);
+    newDay = `${date.getMinutes()}-${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`;
+    console.log("New Day" + newDay);
+    console.log("Current Day being compared with New Day: " + currentDay);
     if (newDay != currentDay){
         currentDay = newDay;
+        
+        chrome.storage.local.set( { currentDay : newDay });
         rotTime = 0;
-        chrome.storage.local.set({ rotTime: rotTime });
         productiveTime = 0;
-        chrome.storage.local.set({ productiveTime: productiveTime});
+        console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        console.log(currentDay);
     }
+    console.log("rotTime: " + rotTime);
 }
 
 export async function checkRedirect(){
