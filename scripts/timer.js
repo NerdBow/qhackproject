@@ -4,7 +4,7 @@ export let productiveTime = 0;
 export let rotTime = 0;
 export let startTime = Date.now();
 export let date = new Date();
-export let currentDay = `${date.getMinutes()}-${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`;;
+export let currentDay = `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`;;
 export let newDay = "";
 // This just retrives all the old values for the variables from local storage since they get killed when it runs again
 chrome.storage.local.get('timerValue', (data) => {
@@ -85,7 +85,7 @@ export function updateTimer(){
 
 export function reset(){
     date = new Date();
-    newDay = `${date.getMinutes()}-${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`;
+    newDay = `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`;
     if (newDay != currentDay){
         currentDay = newDay;
         rotTime = 0;
