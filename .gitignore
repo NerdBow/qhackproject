@@ -1,5 +1,6 @@
 extension/setting/config.js
 server/db/users.db
+server/config.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
