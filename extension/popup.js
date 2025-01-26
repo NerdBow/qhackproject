@@ -1,5 +1,5 @@
 import { getClipboardImage, generateGraph, createCanvas} from "./scripts/graphs.js";
-import { productiveTime, rotTime, siteModifier, timerValue, updateTimer, reset } from "./scripts/timer.js";
+import { productiveTime, rotTime, siteModifier, timerValue, updateTimer, reset, goodSiteTimer, badSiteTimer } from "./scripts/timer.js";
 
 document.getElementById("shareButton").addEventListener("click", () => {
     updateTimer();
